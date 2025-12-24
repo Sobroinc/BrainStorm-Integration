@@ -110,8 +110,16 @@ class BraineMemoryClient:
     async def __aexit__(self, *args) -> None:
         """Disconnect from BraineMemory MCP server."""
         if self._context_manager:
-            await self._context_manager.__aexit__(*args)
+            try:
+                await self._context_manager.__aexit__(*args)
+            except RuntimeError as e:
+                # Handle anyio cancel scope task boundary issue
+                if "cancel scope" in str(e):
+                    logger.debug(f"Ignoring cancel scope warning on disconnect: {e}")
+                else:
+                    raise
         self._session = None
+        self._context_manager = None
         logger.debug("Disconnected from BraineMemory")
 
     @property
