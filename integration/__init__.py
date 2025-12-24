@@ -48,24 +48,54 @@ BrainStorm Integration Layer v1.0.0
         docs = await client.search_documents("contract")
 """
 
-from .config import config, IntegrationConfig
-from .mcp_client import (
-    MCPSession,
-    connect_sse,
-    connect_http,
-    BraineMemoryClient,
-    LegalOpsClient,
-)
-from .providers import BraineMemoryProvider, LegalOpsProvider
-from .orchestrator import BrainStormOrchestrator
-from .agent_mcp_helper import (
-    BrainStormMCPClient,
-    get_braine_tools,
-    get_legal_tools,
-    get_all_mcp_tools,
-    call_braine_tool,
-    call_legal_tool,
-)
+import sys
+from pathlib import Path
+
+# Ensure this package's directory is in path for imports
+_pkg_dir = Path(__file__).parent
+if str(_pkg_dir) not in sys.path:
+    sys.path.insert(0, str(_pkg_dir))
+
+# Try relative imports first, fall back to direct imports
+try:
+    from .config import config, IntegrationConfig
+    from .mcp_client import (
+        MCPSession,
+        connect_sse,
+        connect_http,
+        BraineMemoryClient,
+        LegalOpsClient,
+    )
+    from .providers import BraineMemoryProvider, LegalOpsProvider
+    from .orchestrator import BrainStormOrchestrator
+    from .agent_mcp_helper import (
+        BrainStormMCPClient,
+        get_braine_tools,
+        get_legal_tools,
+        get_all_mcp_tools,
+        call_braine_tool,
+        call_legal_tool,
+    )
+except ImportError:
+    # Direct imports when running from Integration folder
+    from config import config, IntegrationConfig
+    from mcp_client import (
+        MCPSession,
+        connect_sse,
+        connect_http,
+        BraineMemoryClient,
+        LegalOpsClient,
+    )
+    from providers import BraineMemoryProvider, LegalOpsProvider
+    from orchestrator import BrainStormOrchestrator
+    from agent_mcp_helper import (
+        BrainStormMCPClient,
+        get_braine_tools,
+        get_legal_tools,
+        get_all_mcp_tools,
+        call_braine_tool,
+        call_legal_tool,
+    )
 
 __version__ = "1.0.0"
 __all__ = [

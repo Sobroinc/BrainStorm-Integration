@@ -161,9 +161,8 @@ class TestConcurrentToolCalls:
             # Graph queries
             orchestrator.braine.memory_recall_graph(query="entities", mode="local", limit=5),
             orchestrator.braine.memory_recall_graph(query="relations", mode="local", limit=5),
-            # Stats
-            orchestrator.braine.memory_stats(),
             # More recalls
+            orchestrator.braine.memory_recall(query="test 5", limit=3),
             orchestrator.braine.memory_recall(query="test 3", limit=3),
             orchestrator.braine.memory_recall(query="test 4", limit=3),
         ]

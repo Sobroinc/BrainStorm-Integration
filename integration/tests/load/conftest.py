@@ -3,6 +3,8 @@
 Pytest fixtures for load testing.
 
 Uses real legal documents from OlgaFinal dataset.
+
+Note: Path setup is handled by Integration/conftest.py
 """
 
 import asyncio
