@@ -317,7 +317,8 @@ class BraineMemoryProvider:
         if self._pool:
             return self._pool.available > 0
         elif self._client:
-            return self._client.is_running
+            # SSE clients may not have is_running, check for connected attribute
+            return getattr(self._client, "is_running", None) or getattr(self._client, "_connected", True)
         return False
 
     def __repr__(self) -> str:

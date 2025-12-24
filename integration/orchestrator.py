@@ -2448,7 +2448,8 @@ class BrainStormOrchestrator:
                                     style=citation_style,
                                 )
                                 entry["citation"] = citation_result.get("citation", f"Document {doc_id}")
-                            except:
+                            except Exception as e:
+                                logger.warning(f"Citation formatting failed for {doc_id}: {e}")
                                 entry["citation"] = f"Document {doc_id}"
 
                         claim_entry["contradicting"].append(entry)
