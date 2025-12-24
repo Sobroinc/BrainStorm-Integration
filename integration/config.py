@@ -177,18 +177,18 @@ class IntegrationConfig(BaseSettings):
         description="Таймаут запуска серверов",
     )
 
-    # Parallelism limits (semaphore)
+    # Parallelism limits (semaphore) - tuned for v1.2.0 hardening
     braine_max_inflight: int = Field(
+        default=8,
+        ge=1,
+        le=20,
+        description="Макс. параллельных вызовов к BraineMemory (increased for throughput)",
+    )
+    legal_max_inflight: int = Field(
         default=6,
         ge=1,
         le=20,
-        description="Макс. параллельных вызовов к BraineMemory",
-    )
-    legal_max_inflight: int = Field(
-        default=4,
-        ge=1,
-        le=20,
-        description="Макс. параллельных вызовов к LegalOps (тяжёлый анализ)",
+        description="Макс. параллельных вызовов к LegalOps (increased after v1.1.0 cleanup)",
     )
 
     # ─────────────────────────────────────────────────────────────────────────

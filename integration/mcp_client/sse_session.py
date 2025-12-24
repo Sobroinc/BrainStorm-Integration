@@ -27,8 +27,8 @@ from mcp.client.streamable_http import streamablehttp_client
 
 logger = logging.getLogger(__name__)
 
-# Default limits
-DEFAULT_MAX_INFLIGHT = 6
+# Default limits - tuned for v1.2.0 hardening
+DEFAULT_MAX_INFLIGHT = 8  # Increased from 6 for better throughput
 DEFAULT_MAX_RETRIES = 3
 DEFAULT_RETRY_DELAYS = [0.3, 0.8, 1.6]  # Exponential backoff
 
